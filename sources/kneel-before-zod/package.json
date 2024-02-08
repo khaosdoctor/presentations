@@ -11,10 +11,12 @@
     "@slidev/cli": "^0.46.3",
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
+    "joi": "^17.12.1",
     "slidev-theme-dracula": "^0.2.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@iconify-json/ri": "^1.1.19"
+    "@iconify-json/ri": "^1.1.19",
+    "@types/node": "^20.11.16"
   }
 }
