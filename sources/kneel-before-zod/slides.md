@@ -20,7 +20,7 @@ title: Kneel Before Zod
 author: Lucas Santos
 keywords: typescript,nodejs,validation,schema,zod,deno
 presenter: true
-exportFilename: kneel-before-zod
+exportFilename: ../../exported/kneel-before-zod
 export:
   format: pdf
   withClicks: true
