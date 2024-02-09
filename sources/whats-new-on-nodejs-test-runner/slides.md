@@ -31,7 +31,7 @@ title: What's new on Node.js Test Runner
 author: Lucas Santos
 keywords: typescript,nodejs,validation,schema,zod,deno
 presenter: true
-exportFilename: whats-new-on-nodejs-test-runner
+exportFilename: ../../exported/whats-new-on-nodejs-test-runner
 export:
   format: pdf
   withClicks: true

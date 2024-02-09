@@ -1,11 +1,11 @@
 {
-  "name": "kneel-before-zod",
+  "name": "whats-new-on-nodejs-test-runner",
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build",
+    "build": "slidev build --download --base /presentations/static/whats-new-on-nodejs-test-runner/ --out ../../static/whats-new-on-nodejs-test-runner",
     "dev": "slidev --open",
-    "export": "slidev export"
+    "export": "slidev export --format pdf --with-clicks"
   },
   "dependencies": {
     "@slidev/cli": "^0.46.3",
