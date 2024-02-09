@@ -1,5 +1,18 @@
 {
   "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^9.0.10",
     "playwright-chromium": "^1.41.2"
+  },
+  "dependencies": {
+    "commitizen": "^4.3.0"
+  },
+  "scripts": {
+    "prepare": "husky"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
