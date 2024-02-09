@@ -13,8 +13,8 @@ If you want to use the slides per se, you can access them from the links below, 
 
 # Talks
 
-- [Kneel Before Zod: Unlocking the secrets for an error-proof TypeScript application](https://lsantos.dev/talks/kneel-before-zod)
-- [What's new in Node.js Test Runner](https://lsantos.dev/talks/nodejs-test-runner)
+1. [Kneel Before Zod: Unlocking the secrets for an error-proof TypeScript application](https://lsantos.dev/talks/kneel-before-zod)
+2. [What's new in Node.js Test Runner](https://lsantos.dev/talks/nodejs-test-runner)
 
 # About me
 
