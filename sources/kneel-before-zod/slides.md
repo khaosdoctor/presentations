@@ -103,7 +103,7 @@ transition: slide-up
 
 ---
 layout: image-right
-image: https://zod.dev/logo.svg
+image: /zod.svg
 ---
 
 # What is Zod?
@@ -153,7 +153,7 @@ const result = schema.parse(data);
 
 ---
 layout: iframe-right
-url: http://ajv.js.org
+url: https://ajv.js.org
 ---
 
 # Zod is not the first
