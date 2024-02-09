@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+@font-face {
+  font-family: 'Aller Display';
+  src:
+    url('fonts/AllerDisplay.eot?') format('eot'),
+    url('fonts/AllerDisplay.woff') format('woff'),
+    url('fonts/AllerDisplay.ttf') format('truetype'),
+    url('fonts/AllerDisplay.svg#AllerDisplay') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+:root {
+  --green: #45bb8b;
+  --red: #ed1b24;
+  --blue: #197bc0;
+  --yellow: #f6b21a;
+  --purple-darker: #000022;
+  --purple-dark: #120b23;
+  --purple-lighter: #120b27;
+}
+
+* {
+  z-index: 1;
+}
+
+h1 {
+  font-family: 'Aller Display';
+  color: white !important;
+}
+
+h2 {
+  font-family: 'Ubuntu';
+}
+
+#slideshow div.slidev-layout {
+  @apply bg-[--purple-darker] z-0;
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: url('/pattern.png') no-repeat;
+    background-size: 60%;
+    background-position: -3em 0;
+    opacity: 0.22;
+    content: "";
+    z-index: -1;
+  }
+}
+
+strong {
+  @apply fw-bold bg-[--yellow] text-[--purple-darker]! px-1 py-0.5;
+}
+
+em {
+  @apply italic text-[--green]! underline;
+}
