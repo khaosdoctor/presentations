@@ -1,0 +1,19 @@
+{
+  "name": "kneel-before-zod",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.46.3",
+    "@slidev/theme-default": "latest",
+    "slidev-theme-dracula": "^0.2.0"
+  },
+  "devDependencies": {
+    "@iconify-json/ri": "^1.1.19",
+    "@types/node": "^20.11.16"
+  }
+}
