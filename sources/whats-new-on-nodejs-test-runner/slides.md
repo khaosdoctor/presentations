@@ -995,7 +995,7 @@ Then run it with the `--import` flag
 ℹ todo 0
 ℹ duration_ms 157.107959
 ```
-  
+
 </v-click>
 
 <v-click>
@@ -1094,3 +1094,26 @@ The test runner is still in active development, and you can get involved!
 <div class="socials text-center" style="font-family: 'Fira Code', mono;">
   <span>https://</span><span class="text-[--green]">{twitter,instagram,github,youtube,linkedin}</span><span>.lsantos.dev</span>
 </div>
+
+---
+layout: two-cols-header
+---
+
+<style scoped>
+  .two-cols-header.w-full.h-full {
+    align-items: center !important;
+  }
+  img {
+    width: 90% !important;
+  }
+</style>
+
+# See this talk on my website
+
+::left::
+
+*https://lsantos.dev/talks/nodejs-test-runner*
+
+::right::
+
+![](/talk-qr.png)
