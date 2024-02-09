@@ -1251,4 +1251,4 @@ layout: two-cols-header
 
 ::right::
 
-![](public/talk-qr.png)
+![](/talk-qr.png)
