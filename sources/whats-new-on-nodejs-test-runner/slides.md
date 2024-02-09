@@ -10,14 +10,23 @@ mdc: true
 fonts:
   sans: Ubuntu
   mono: Fira Code
-info: |
+info: >
   ## What's new on Node.js Test Runner
 
-  One of the most exciting features of Node in the past months is the new test runner. But for some reason people don't seem to be using it a lot!
 
-  In this talk I'll guide you through all the coolest new features this new test runner has, including the ones that I have personally created and worked with. We will go internally in the Node code and see how mocks are implemented and how to work with them, we will also see the next steps for the runner and what we should expect for it in the future.
+  One of the most exciting features of Node in the past months is the new test
+  runner. But for some reason people don't seem to be using it a lot!
 
-  So get ready to make your testing much more integrated with native assertions getting all the gold without having to sacrifice performance!
+
+  In this talk I'll guide you through all the coolest new features this new test
+  runner has, including the ones that I have personally created and worked with.
+  We will go internally in the Node code and see how mocks are implemented and
+  how to work with them, we will also see the next steps for the runner and what
+  we should expect for it in the future.
+
+
+  So get ready to make your testing much more integrated with native assertions
+  getting all the gold without having to sacrifice performance!
 title: What's new on Node.js Test Runner
 author: Lucas Santos
 keywords: typescript,nodejs,validation,schema,zod,deno
@@ -39,6 +48,10 @@ layout: cover
 # Node.js Test Runner
 
 ## Why is it game-changing?
+
+<!--
+So today we will be talking about node and test, all together!
+-->
 
 ---
 layout: default
@@ -116,6 +129,19 @@ layout: fact
 
 </v-clicks>
 
+<!--
+First things first, what is my goal with this talk
+
+*click*
+
+- I want to make you forget Jest completely
+- Do I hate Jest? No, but I had my fair share of problems with it and I think it's time for something new
+
+*click*
+
+- Yes, that's just it, please let me know in my socials if I convinced you
+-->
+
 ---
 layout: section
 ---
@@ -128,6 +154,14 @@ layout: section
 <h2 class="text-[--purple-darker]! bg-[--green] py-1 font-bold">by showing you something (possibly) better</h2>
 
 </v-clicks>
+
+<!--
+- How I'm going to convince you of this?
+
+*click*
+
+- I'm going to show you something amazing today
+-->
 
 ---
 layout: fact
@@ -142,11 +176,24 @@ transion: slide-up
 
 </v-clicks>
 
+<!--
+- But why possibly?
+
+*click*
+
+- Well, because the runner is still being improved activelly
+- You can already use it on Node.js 20 in the stable version though!
+-->
+
 ---
 layout: section
 ---
 
 # What's bad about current runners?
+
+<!--
+- What about we have today? Why isn't that enough?
+-->
 
 ---
 
@@ -176,6 +223,19 @@ layout: section
 
 </v-clicks>
 
+<!--
+*all clicks*
+
+1. Configuring runners like jest is a pain, so many options, so many things, it does it all, transform, parse, move, assert, coverage, it's just too many things
+2. This makes them slow
+3. Runners should be a thing from your runtime, they shouldn't be an extra library that you have to take care of. Remember, each library you have is external code you don't maintain, and yet, you rely on
+4. Each test runner is completely different from each other in configuration, they make sure you will only be able to use them and nothing else
+5. They're either not extensible enough, or they are extremely extensible, there's no middle ground
+6. TypeScript is the nemesis of test runners. They're particularly hard to configure when you want to transpile ts on the fly
+6.1. Mostly because you have to download other libraries to that for you, which, is yet another lib
+7. Test runners spawn like rats, there's one new everyday, most of them are just more of the same, but this creates a huge bloat in the ecosystem (and they don't interop)
+-->
+
 ---
 layout: section
 transition: slide-up
@@ -189,17 +249,29 @@ transition: slide-up
 
 ![](/initial-cli.png)
 
+<!--
+The initial version of the runner was added in 2022 by Colin Ihrig
+-->
+
 ---
 
 # Improvements came soon after
 
 ![](/tap-parser.png)
 
+<!--
+Soon after, one of my former MS colleagues Wasim added the TAP parser
+-->
+
 ---
 
 # It was soon stable
 
 ![](/stable-cli.jpg)
+
+<!--
+In node 20, the runner was marked stable, this was roughly 4 months from the initial release
+-->
 
 ---
 
@@ -225,6 +297,23 @@ transition: slide-up
   - Supports TS out of the box
 
 </v-clicks>
+
+<!--
+But why is it different, and why am I advocating for it so much?
+
+*click*
+
+- First and foremost, it's a built-in thing, I realy hate extra libs
+- It's pretty fast
+- No need for config files and extra rituals
+- Native assertions can be used, but you can also use any other assertion library that throws
+- TAP by default, so it's easily interoperable, but can also integrate with other test reporters
+- It always has the most up to date features of node
+- This keeps your projects consistent since you don't need to install extra boilerplate
+- No polyfills for things the test runner does (like babel)
+- Supports code coverage
+- Supports TS via importers
+-->
 
 ---
 transition: slide-up
@@ -261,11 +350,23 @@ Let's break it down...
 
 </v-click>
 
+<!--
+- First we declare our function
+
+*click*
+
+- Them we create our test
+-->
+
 ---
 layout: section
 ---
 
 <h1>Writing <span class="bg-[--yellow] px-1 text-[--purple-darker]!">tests_</span></h1>
+
+<!--
+- First let's start writing the tests
+-->
 
 ---
 
@@ -300,6 +401,27 @@ test('sum', (t) => {
 
 </v-after>
 
+<!--
+- You can import describe and it from the runner
+
+*click*
+
+- Import the assertion lib
+
+*click*
+
+- Then the function we'll test
+
+*click*
+
+- The test is the same as we are used to in other runners, the assertion lib is a bit different but also not a problem
+
+*click*
+
+- If you don't want to use describe, you can use the native test version, it's a bit more verbose but does the same thing.
+
+- All of them support async functions and promises
+-->
 
 ---
 transition: slide-up
@@ -328,11 +450,24 @@ describe('sum', () => {
 
 </v-click>
 
+<!--
+- For assertions you can, and should, use the native assertion lib, but I reckon it's not the best lib out there, especially because it's not that easy to read
+- So you can use others, like chai
+
+*click*
+
+- The important thing here is that assertions are not tied to the runner itself, they're two completely different things
+-->
+
 ---
 layout: section
 ---
 
 <h1 class="bg-[--blue] text-[--purple-darker]!">Running_</h1>
+
+<!--
+- How do we run those tests
+-->
 
 ---
 transition: slide-up
@@ -368,11 +503,37 @@ This will give you a TAP output:
 
 </v-click>
 
+<!--
+- Just append --test to the node command and pass on your test file
+
+*click*
+
+- This will give back a TAP output by default
+
+*click*
+
+- You can see the number of cancelled or aborted tests
+
+*click*
+
+- Skipped tests are also another feature
+
+*click*
+
+- And todo tests are also supported
+-->
+
 ---
 layout: section
 ---
 
 <h1 class="bg-[--green] text-[--purple-darker]! px-1">Mocks_</h1>
+
+<!--
+Mocking is one of the most important parts of a test. And, to be honest, is one of the best features of Jest, for instance.
+
+But node has them too.
+-->
 
 ---
 
@@ -397,6 +558,30 @@ It also allows you to mock two more complex structures
 
 </v-click>
 
+<!--
+Mocks are supported for some, but not all of them.
+
+- It supports a generic spy function like Jest
+
+*click*
+
+- Getters
+
+*click*
+
+- Setters
+
+*click*
+
+- Methods of classes
+
+*click*
+
+And it allows you to mock other two complex structures I'll be going through.
+
+Module mocking is not yet supported, for this you would need to use a test double library like sinon
+-->
+
 ---
 
 # Mocking
@@ -407,6 +592,12 @@ Timers ([link](https://github.com/nodejs/node/pull/47775))
 <div class="flex flex-row flex-content-center flex-justify-center">
   <img src="/mocktimers.png" class="object-contain w-60%" />
 </div>
+
+<!--
+The first supported mock came from a very good friend of mine, and added support for timers.
+
+Things like set timeout, set interval, and etc.
+-->
 
 ---
 
@@ -432,6 +623,19 @@ describe('setTimeout', () => {
   })
 })
 ```
+
+<!--
+You use them like this:
+
+*each list is a click*
+
+1. We first define our subtest (or test)
+2. We define a function that will be our callback
+3. We enable the timers from the context, saying that we want the setTimeout only to be mocked
+4. Set a timeout with our mock function and If we assert, we will see the function hasn't been called because we haven't advanced time yet
+6. Calling tick will advance time
+7. We can now assert that the mock has been called And reset everything
+-->
 
 ---
 transition: slide-up
@@ -460,6 +664,14 @@ describe('setTimeout', () => {
 })
 ```
 
+<!--
+If you don't want to call from the context
+
+*click*
+
+You can import the mock directly
+-->
+
 ---
 
 # Date mocking
@@ -469,6 +681,14 @@ Dates (by yours truly) ([link](https://github.com/nodejs/node/pull/48638))
 <div class="flex flex-row flex-content-center! flex-justify-center!">
   <img src="/mockdates.png" class="object-contain w-60%" />
 </div>
+
+<!--
+The next complex structure is Time!
+
+This one is a feature I have personally worked with and implemented.
+
+Building upon the previous one, it allows you to mock the Date object
+-->
 
 ---
 transition: slide-up
@@ -491,11 +711,24 @@ test('mocks the Date object', (context) => {
 });
 ```
 
+<!--
+It works quite the same
+
+- The only thing is that we need to say we want to enable Date mocks
+- When started the mock will be UNIX epoch
+- If we tick the time, we will advance it by some mills, we can also set the date to another date
+- Now the time is 9999. This is particularly useful if we want to deal with messaging, external databases and so on, we use it a lot in Klarna
+-->
+
 ---
 layout: section
 ---
 
 <h1 class="bg-[--red] text-[--purple-darker]!">Code Coverage_</h1>
+
+<!--
+Next up is the support for code coverage
+-->
 
 ---
 
@@ -512,6 +745,14 @@ node --test --experimental-test-coverage test.js
 As you can expect, it's experimental, so use with caution
 
 </v-click>
+
+<!--
+By default it's already supported, just pass this flag to the command and you're done.
+
+*click*
+
+However, this is still experimental and uses V8's built-in coverage for JS files, so use with caution
+-->
 
 ---
 
@@ -543,6 +784,22 @@ As you can expect, it's experimental, so use with caution
 ℹ end of coverage report
 ```
 
+<!--
+The output is a TAP with the report, which is very easy to read
+
+*click*
+
+We got our command
+
+*click*
+
+Our test result
+
+*click*
+
+Our coverage result
+-->
+
 ---
 
 # Code coverage
@@ -557,6 +814,10 @@ export function sum(a, b) {
   return a + b
 }
 ```
+
+<!--
+And the lines it showed us are just the ones we haven't tested
+-->
 
 ---
 transition: slide-up
@@ -587,11 +848,23 @@ The test runner supports:
 
 </v-click>
 
+<!--
+You can also use different reporters and send them to files instead of the stdout
+
+*click*
+
+right now the runner supports all these reporters natively
+-->
+
 ---
 layout: section
 ---
 
 <h1 class="bg-[--yellow] text-[--purple-darker]!">TypeScript 🩵</h1>
+
+<!--
+Let's talk about TS
+-->
 
 ---
 
@@ -607,6 +880,17 @@ Node already supports what's called "importers".
 - Common importers are `ts-node`, `tsx`, and `esbuild`
 
 </v-clicks>
+
+<!--
+Something on the side, but node already supports compiling ts on the fly via importers
+
+*click - list*
+
+- They were called loaders before and were super useful to transform and parse the data, since they run before the module code is loaded into the VM
+- Babel had loaders, Jest has loaders and other tools also have them to modify the code on the go, Jest, for example, hoists some declarations on import
+- So this means you can also compile TS on the fly
+- The most common ones were TS-node and TSX, we will be using tsx
+-->
 
 ---
 
@@ -636,9 +920,18 @@ node --import=tsx index.ts
 
 </v-click>
 
+<!--
+Let's go back to our example, I just added some types in it and a console
+
+*click*
+
+we install tsx to run it and execute passing the --import flag
+-->
+
 ---
 layout: image-right
-image: https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGV1dnNocXh1YWNyZXJ1cjlyOXM5cnNwNjBqZjdqc2R3ZHZpZmNnaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/E3MQDZl9qsVwgnKA7b/giphy.gif
+image: >-
+  https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGV1dnNocXh1YWNyZXJ1cjlyOXM5cnNwNjBqZjdqc2R3ZHZpZmNnaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/E3MQDZl9qsVwgnKA7b/giphy.gif
 ---
 
 # TypeScript support
@@ -662,6 +955,18 @@ you can use this with the test runner?
 
 </v-click>
 
+<!--
+BOOM MAGIC!
+
+*click*
+
+Now what if
+
+*click*
+
+we could use it to run tests? Since node supports already, it should be easy right?
+-->
+
 ---
 transition: slide-up
 ---
@@ -671,6 +976,8 @@ transition: slide-up
 Let's just take the previous example and change the file extension to `test.ts`
 
 Then run it with the `--import` flag
+
+<v-click>
 
 ```sh
 ❯ node --import=tsx --test test.ts
@@ -688,12 +995,28 @@ Then run it with the `--import` flag
 ℹ todo 0
 ℹ duration_ms 157.107959
 ```
+  
+</v-click>
 
 <v-click>
 
 Now look at that `jest.config.js` file you've been maintaining as a boilerplate for 5 years and tell me if this isn't just a bliss
 
 </v-click>
+
+<!--
+And it is...
+
+Just take the previous test file, move it to TS and run the same command but passing an import flag
+
+*click*
+
+BOOM magic! tests run, everything runs! No configuration, no nothing, just native stuff
+
+*click*
+
+Now when you look at that 50-line configuration file for your runner, you want to cry
+-->
 
 ---
 transition: slide-up
@@ -733,6 +1056,19 @@ Funny enough, Colin Ihrig (one of the main contributors to the test runner) has 
 - The **definitive** downfall of Jest (just kidding)
 
 </v-clicks>
+
+<!--
+*scroll through the page*
+
+*click list*
+
+- Move to module mocking in the website
+- Improved filtering also has a topic on the website, the thing is that filtering by name and filtering only tests need the runner to precompile all the tests first to filter out the ones that won't be executed
+- Nothing to comment on more reporters
+- Snapshot testing is something that was briefly added in the runner but was removed due to some storage issues, but it's a feature for the assertion library, no the runner
+- source map (nothing to comment)
+- Mock more things, I'm planning to start working on the mock for the performance module soon!
+-->
 
 ---
 
