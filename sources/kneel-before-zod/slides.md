@@ -313,7 +313,7 @@ There are others that do the same, like:
 
 Let's create a type that represents a user, using Joi:
 
-```ts twoslash
+```ts {all|3-10|12}
 import Joi from 'joi'
 
 const schema = Joi.object({
@@ -361,8 +361,11 @@ const user = schema.validate({ username: 'lsantosdev', password: '123456' })
 
 ```
 
+<v-click>
+
 And typing it ourselves means that we have two sources of truth that *are not connected*. If the type changes, the schema **won't**... And vice-versa
 
+</v-click>
 
 ---
 
@@ -370,7 +373,7 @@ And typing it ourselves means that we have two sources of truth that *are not co
 
 Let's do the same with Zod:
 
-```ts twoslash
+```ts {all|3-6|8|14}{startLine:1,lines:false} twoslash
 import { z } from 'zod'
 
 const schema = z.object({
@@ -512,22 +515,20 @@ If your schema changes, your type will **not** follow ➡️ _Bad typing_
 
 <v-click at="0">
 
-  ## Don't 🚫
+## Don't 🚫
 
-  ```ts twoslash
-  import {z} from 'zod'
-  // ---cut---
-  const userSchema = z.object({
-    user: z.string(),
-    pass: z.string()
-  })
+```ts {all|7-10}{lines:false}
+const userSchema = z.object({
+  user: z.string(),
+  pass: z.string()
+})
 
-  // DUPLICATE, not source of truth
-  interface UserType {
-    user: string
-    pass: string
-  }
-  ```
+// DUPLICATE, not source of truth
+interface UserType {
+  user: string
+  pass: string
+}
+```
 
 </v-click>
 
@@ -652,7 +653,7 @@ layout: section
 
 <v-click>
 
-```ts twoslash
+```ts{all|1-7|8-14|16}{lines:false} twoslash
 import {z} from 'zod'
 // ---cut---
 const configSchema = z.object({
@@ -695,7 +696,7 @@ const config = configSchema.parse({}) // { port: 3000, connStr: 'mongodb://local
 
 <v-click>
 
-```ts twoslash
+```ts{all|1-5|6|2,6|8|13-14}{lines:false} twoslash
 import { z } from 'zod'
 // ---cut---
 const configSchema = z.object({
@@ -735,7 +736,7 @@ The first thing is refine, it allows you to extend the validation and add your o
 
 <v-click>
 
-```ts twoslash
+```ts{all|1-5|6|8|13}{lines:false} twoslash
 import { z } from 'zod'
 // ---cut---
 const configSchema = z.object({
@@ -777,7 +778,7 @@ But can also be applied at a type level:
 
 <v-click>
 
-```ts twoslash
+```ts{all|2,6|6,9|2,6,9|12|12,1|14}{lines:false} twoslash
 import { z } from 'zod'
 // ---cut---
 const configSchema = z.object({
@@ -789,7 +790,7 @@ const configSchema = z.object({
 //              ^?
 
 
-    .refine((v) => v > 65535, 'Invalid port range')
+    .refine((p) => p > 65535, 'Invalid port range')
 //           ^?
 })
 
@@ -881,7 +882,7 @@ stringSchema.safeParse("lsantos.dev");
 
 # Handling errors in APIs
 
-```ts
+```ts {all|1-4|6|7,1-4|8-10|13}
 const userSchema = z.object({
   name: z.string(),
   pass: z.string()
@@ -910,7 +911,7 @@ app.post('/users', async (req, res, next) => {
 
 Errors can also be handled in "unsafe" mode
 
-```ts
+```ts {all|1-4,8|7,11|12-14}
 const userSchema = z.object({
   name: z.string(),
   pass: z.string()
@@ -958,7 +959,7 @@ A `ZodError` includes the complete error stack so you can send it over to the cl
 
 But you can also format it to a more human-readable message using `.format()`:
 
-```ts twoslash
+```ts{3-4}{lines:false} twoslash
 import { z } from 'zod'
 // ---cut---
 const result = z.object({ name: z.string(), }).safeParse({ name: 12 })
@@ -1006,7 +1007,7 @@ Now let's not talk about examples and talk about a real case in Klarna
 
 Can you spot the problem?
 
-```ts twoslash
+```ts{all|4}{lines:false} twoslash
 import {z} from 'zod'
 // ---cut---
 const schema = z.object({
@@ -1018,11 +1019,11 @@ const schema = z.object({
 
 </v-click>
 
-<v-click>
+<v-after>
 
 We lose type inference for the `clientInformation` field. It's just a string, but we need it to be an object, **a validated object**
 
-</v-click>
+</v-after>
 
 <!--
 - As a bank, most of the systems we interact with, like PSPs, are not synchronous, some of them use webhooks to relay responses. Some other internal systems do the same
@@ -1052,9 +1053,7 @@ We lose type inference for the `clientInformation` field. It's just a string, bu
 
 We can define a schema for our JSON:
 
-```ts twoslash
-import { z } from 'zod'
-// ---cut---
+```ts
 const clientInformation = z.object({
   authenticationToken: z.string(),
   items: z
@@ -1082,23 +1081,7 @@ const clientInformation = z.object({
 
 And then we can use it in our main schema:
 
-```ts twoslash
-import { z } from 'zod'
-const clientInformation = z.object({
-  authenticationToken: z.string(),
-  items: z
-    .array(
-      z.object({
-        id: z.string().uuid(),
-        quantity: z.number().int().positive()
-      })
-    )
-    .nonempty(),
-  orderId: z.string().uuid(),
-  sourcePSP: z.string().optional(),
-  sourcePSPTransactionId: z.string().optional()
-})
-// ---cut---
+```ts{all|4|6-7|5,8|9-10|12-17}
 const schema = z.object({
   maskedPan: z.string(),
   orderId: clientInformation.shape.orderId,
