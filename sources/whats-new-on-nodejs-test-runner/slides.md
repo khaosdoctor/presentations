@@ -98,7 +98,7 @@ transition: slide-up
 <div id="avatar">
   <div class="position">
     <span class="text-nowrap font-size-[15px]">Senior Software <span class="bg-[--yellow] text-[--purple-darker] px-[3px] py-[1px]"><b>engineer_</b></span></span>
-    <img class="mt-[5px]" src="/klarna.png" />
+    <img class="mt-[5px]" width="200px" src="/openvolt.svg" />
   </div>
   <img class="b-rd-[50%] w-[60%]" src="/avatar.png" />
 
